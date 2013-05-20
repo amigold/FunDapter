@@ -1,0 +1,18 @@
+
+[{
+		"imageUrl" : "http://proguard.sourceforge.net/android_shades.png",
+		"description" : "pants you can wear and stuff",
+		"title" : "Hot pants!",
+		"price" : 259
+	}, {
+		"imageUrl" : "http://proguard.sourceforge.net/android_shades.png",
+		"description" : "good for the ladies",
+		"title" : "Android shirt",
+		"price" : 359
+	}, {
+		"imageUrl" : "http://proguard.sourceforge.net/android_shades.png",
+		"description" : "for the head!",
+		"title" : "Cool hat",
+		"price" : 159.9
+	}
+]
