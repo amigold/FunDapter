@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Fundapter by amigold</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Fundapter</h1>
+        <p>Simplify Adapter creation for your Android ListViews.</p>
+
+        <p class="view"><a href="https://github.com/amigold/FunDapter">View the Project on GitHub <small>amigold/FunDapter</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/amigold/FunDapter/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/amigold/FunDapter/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/amigold/FunDapter">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>FunDapter takes the pain and hassle out of creating a new Adapter class for each ListView you have in your Android app.</p>
+
+<p>It is a new approach to custom adapter creation for Android apps. 
+You get free ViewHolder pattern support, field validation so you don't get bit by trivial bugs and best of all - you get to keep it DRY!</p>
+
+<h2>What you used to do:</h2>
+
+<ol>
+<li>Subclass BaseAdapter or copy existing adapter you already wrote.</li>
+<li>Create a ViewHolder static class a define all the views in it.</li>
+<li>Write (Copy.. don't fool yourself!) the whole ViewHolder creation code from somewhere.</li>
+<li>Write all the "findViewById" lines.</li>
+<li>Start filling data in the views inside the getView method.</li>
+</ol><p>Well that was boring! I feel your pain!</p>
+
+<h2>What FunDapter lets you do:</h2>
+
+<ol>
+<li>Create a new BindDictionary</li>
+<li>Add fields.</li>
+<li>Create a new FunDapter instance, supplying the BindDictionary, layout resource file and item list.</li>
+</ol><h2>Getting Started</h2>
+
+<p>This is the <code>Product</code> class we'll create an adapter for:</p>
+
+<pre><code>public class Product {
+
+    public String title;
+    public String description;
+    public String imageUrl;
+    public double price;
+}
+</code></pre>
+
+<h3>Create a new BindDictionary instance:</h3>
+
+<pre><code>BindDictionary&lt;Product&gt; dict = new BindDictionary&lt;Product&gt;();
+</code></pre>
+
+<h3>Adding a basic text field:</h3>
+
+<pre><code>dict.addStringField(R.id.description,
+    new StringExtractor&lt;Product&gt;() {
+
+        @Override
+        public String getStringValue(Product item, int position) {
+            return item.description;
+        }
+    });
+</code></pre>
+
+<p>Notice how you simply provide the id of the <code>TextView</code> and an 
+implementation of the <code>StringExtractor</code> which will be used to get the correct <code>String</code> value from your <code>Product</code>.</p>
+
+<hr><h3>Now a more complicated text field:</h3>
+
+<pre><code>dict.addStringField(R.id.title,
+    new StringExtractor&lt;Product&gt;() {
+
+        @Override
+        public String getStringValue(Product item, int position) {
+            return item.title;
+        }
+    }).typeface(myBoldFace).visibilityIfNull(View.GONE);
+</code></pre>
+
+<p>Notice how you can chain calls to get some more complex behaviours out of your views. 
+<code>typeface()</code> will set a typeface on the view while 
+<code>visibilityIfNull()</code> will change the visibility of the field according to the value being null or not.</p>
+
+<hr><h3>What about our image? Lets add that as well:</h3>
+
+<pre><code>prodDict.addImageField(R.id.productImage,
+    new StringExtractor&lt;Product&gt;() {
+
+        @Override
+        public String getStringValue(Product item, int position) {
+            return item.imageUrl;
+        }
+    }, new ImageLoader() {
+        @Override
+        public void loadImage(String url, ImageView view) {
+            //insert your own async image loader implementation
+        }
+    });
+</code></pre>
+
+<p>In here the <code>StringExtractor</code> grabs the URL from the <code>Product</code> item while the <code>ImageLoader</code> gives you a 
+reference to the view and the URL you extracted so you can use your own custom lazy image loading implementation.</p>
+
+<hr><h3>Finally, create the adapter:</h3>
+
+
+
+<pre><code>FunDapter&lt;Product&gt; adapter = new FunDapter&lt;Product&gt;(getActivity(), productArrayList,
+        R.layout.product_list_item, dict);
+</code></pre>
+
+<h3>Find out more <a href="https://github.com/amigold/FunDapter">here</a></h3>
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/amigold">amigold</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40929159-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
