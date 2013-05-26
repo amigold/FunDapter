@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,14 +23,17 @@ import android.widget.TextView;
  * 
  * @param <T>
  */
-public class FunDapter<T> extends BaseAdapter {
+public class FunDapter<T> extends BaseAdapter implements Filterable {
 
     protected ArrayList<T> mDataItems;
+    protected ArrayList<T> mOrigDataItems;
     protected final Context mContext;
     private final int mLayoutResource;
     private final BindDictionary<T> mBindDictionary;
     private int oddColorRes;
     private int evenColorRes;
+    private FunDapterFilter<T> funDapterFilter;
+    private Filter lessonFilter;
 
     /**
      * A generic adapter that takes a BindDictionary and data and shows them.
@@ -48,6 +53,7 @@ public class FunDapter<T> extends BaseAdapter {
 	    int layoutResource, BindDictionary<T> dictionary) {
 	this.mContext = context;
 	this.mDataItems = dataItems;
+	this.mOrigDataItems = dataItems;
 	this.mLayoutResource = layoutResource;
 	this.mBindDictionary = dictionary;
     }
@@ -60,6 +66,7 @@ public class FunDapter<T> extends BaseAdapter {
      */
     public void updateData(ArrayList<T> dataItems) {
 	this.mDataItems = dataItems;
+	this.mOrigDataItems = dataItems;
 	notifyDataSetChanged();
     }
 
@@ -235,7 +242,7 @@ public class FunDapter<T> extends BaseAdapter {
 	    String url = field.extractor.getStringValue(item, position);
 	    ImageView view = holder.imageFields[i];
 
-	    //call the image loader
+	    // call the image loader
 	    if (!TextUtils.isEmpty(url) && field.imageLoader != null
 		    && view != null) {
 		field.imageLoader.loadImage(url, view);
@@ -255,7 +262,7 @@ public class FunDapter<T> extends BaseAdapter {
 	    String stringValue = field.extractor.getStringValue(item, position);
 	    TextView view = holder.stringFields[i];
 
-	    //fill data
+	    // fill data
 	    if (!TextUtils.isEmpty(stringValue) && view != null) {
 		view.setText(stringValue);
 		view.setVisibility(View.VISIBLE);
@@ -296,4 +303,71 @@ public class FunDapter<T> extends BaseAdapter {
 
 	return this;
     }
+
+    @Override
+    public Filter getFilter() {
+	return lessonFilter;
+    }
+
+    /**
+     * Use this method to enable filtering in the adapter.
+     * 
+     * @param filter
+     *            - a filter implementation for your adapter.
+     */
+    public void initFilter(FunDapterFilter<T> filter) {
+
+	if (filter == null)
+	    throw new IllegalArgumentException(
+		    "Cannot pass a null filter to FunDapter");
+
+	this.funDapterFilter = filter;
+
+	lessonFilter = new Filter() {
+
+	    @Override
+	    protected void publishResults(CharSequence constraint,
+		    FilterResults results) {
+
+		@SuppressWarnings("unchecked")
+		ArrayList<T> list = (ArrayList<T>) results.values;
+
+		if (results.count == 0) {
+		    resetData();
+		} else {
+		    mDataItems = list;
+		}
+
+		notifyDataSetChanged();
+	    }
+
+	    @Override
+	    protected FilterResults performFiltering(CharSequence constraint) {
+
+		FilterResults results = new FilterResults();
+		if (constraint == null || constraint.length() == 0) {
+		    
+		    // No constraint - no point in filtering.
+		    results.values = mOrigDataItems;
+		    results.count = mOrigDataItems.size();
+		} else {
+		    // Perform the filtering operation
+
+		    ArrayList<T> filter = funDapterFilter.filter(
+			    constraint.toString(), mOrigDataItems);
+
+		    results.count = filter.size();
+		    results.values = filter;
+
+		}
+
+		return results;
+	    }
+	};
+    }
+
+    public void resetData() {
+	mDataItems = mOrigDataItems;
+    }
+
 }

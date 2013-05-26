@@ -10,14 +10,18 @@ import java.util.List;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
+import com.ami.fundapter.FunDapterFilter;
 import com.ami.fundapter.ImageLoader;
 import com.ami.fundapter.StringExtractor;
 import com.google.gson.Gson;
@@ -27,6 +31,7 @@ public class MainActivity extends FragmentActivity {
 
     private ListView list;
     private Typeface tfBold;
+    private TextView searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,9 @@ public class MainActivity extends FragmentActivity {
 	setContentView(R.layout.activity_main);
 
 	list = (ListView) findViewById(R.id.pager);
+	searchField = (TextView) findViewById(R.id.searchField);
 
-	//load some custom font
+	// load some custom font
 	tfBold = Typeface.createFromAsset(getAssets(), "arialbd.ttf");
 
 	// Parse the sample JSON data from the asset file
@@ -53,7 +59,7 @@ public class MainActivity extends FragmentActivity {
 	    e.printStackTrace();
 	}
 
-	//Show our data
+	// Show our data
 	// initAdapter(prodList);
 	initFunDapter(prodList);
 
@@ -123,6 +129,51 @@ public class MainActivity extends FragmentActivity {
 	FunDapter<Product> adapter = new FunDapter<Product>(this, prodList,
 		R.layout.product_list_item, prodDict);
 	list.setAdapter(adapter);
+
+	// initialize the textfilter for our list
+	initTextFilter(adapter);
+    }
+
+    private void initTextFilter(final FunDapter<Product> adapter) {
+
+	// init the filter in the adapter
+	adapter.initFilter(new FunDapterFilter<Product>() {
+	    @Override
+	    public ArrayList<Product> filter(String filterConstraint,
+		    ArrayList<Product> originalList) {
+
+		ArrayList<Product> filtered = new ArrayList<Product>();
+
+		for (int i = 0; i < originalList.size(); i++) {
+		    Product product = originalList.get(i);
+		    if (product.title.startsWith(filterConstraint)) {
+			filtered.add(product);
+		    }
+		}
+
+		return filtered;
+	    }
+	});
+
+	searchField.addTextChangedListener(new TextWatcher() {
+
+	    @Override
+	    public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+		    int arg3) {
+		//now we can use the regular ListView API for filtering:
+		adapter.getFilter().filter(arg0);
+	    }
+
+	    @Override
+	    public void beforeTextChanged(CharSequence arg0, int arg1,
+		    int arg2, int arg3) {
+	    }
+
+	    @Override
+	    public void afterTextChanged(Editable arg0) {
+
+	    }
+	});
     }
 
     public String readFile(String filename) {
