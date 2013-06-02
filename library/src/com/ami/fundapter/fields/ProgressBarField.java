@@ -1,4 +1,6 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
+
+import com.ami.fundapter.extractors.IntegerExtractor;
 
 import android.view.View.OnClickListener;
 
@@ -10,8 +12,8 @@ import android.view.View.OnClickListener;
  * @param <T>
  */
 public class ProgressBarField<T> extends BaseField<T> {
-    IntegerExtractor<T> progressExtractor;
-    IntegerExtractor<T> maxProgressExtractor;
+    public IntegerExtractor<T> progressExtractor;
+    public IntegerExtractor<T> maxProgressExtractor;
 
     public ProgressBarField(int viewResId,
 	    IntegerExtractor<T> progerssExtractor,

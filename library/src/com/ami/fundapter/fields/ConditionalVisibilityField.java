@@ -1,4 +1,6 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
+
+import com.ami.fundapter.extractors.BooleanExtractor;
 
 import android.view.View.OnClickListener;
 
@@ -12,8 +14,8 @@ import android.view.View.OnClickListener;
  */
 public class ConditionalVisibilityField<T> extends BaseField<T> {
 
-    BooleanExtractor<T> extractor;
-    int visibilityIfFalse;
+    public BooleanExtractor<T> extractor;
+    public int visibilityIfFalse;
 
     public ConditionalVisibilityField(int viewResId,
 	    BooleanExtractor<T> extractor, int visibilityIfFalse) {

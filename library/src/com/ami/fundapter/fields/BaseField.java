@@ -1,10 +1,10 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
 
 import android.view.View.OnClickListener;
 
 public abstract class BaseField<T> {
-    int viewResId;
-    OnClickListener clickListener;
+    public int viewResId;
+    public OnClickListener clickListener;
 
     public BaseField(int viewResId) {
 	this.viewResId = viewResId;

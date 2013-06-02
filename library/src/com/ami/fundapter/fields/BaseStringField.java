@@ -1,12 +1,14 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
 
+
+import com.ami.fundapter.extractors.StringExtractor;
 
 import android.view.View;
 
 public abstract class BaseStringField<T> extends BaseField<T> {
 
-    StringExtractor<T> extractor;
-    int visibilityIfNull = View.VISIBLE;
+    public StringExtractor<T> extractor;
+    public int visibilityIfNull = View.VISIBLE;
 
     public BaseStringField(int viewResId, StringExtractor<T> extractor) {
 	super(viewResId);

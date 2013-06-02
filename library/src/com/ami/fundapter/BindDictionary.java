@@ -3,6 +3,14 @@ package com.ami.fundapter;
 
 import java.util.ArrayList;
 
+import com.ami.fundapter.extractors.BooleanExtractor;
+import com.ami.fundapter.extractors.IntegerExtractor;
+import com.ami.fundapter.extractors.StringExtractor;
+import com.ami.fundapter.fields.ConditionalVisibilityField;
+import com.ami.fundapter.fields.ImageField;
+import com.ami.fundapter.fields.ProgressBarField;
+import com.ami.fundapter.fields.StringField;
+
 /**
  * A dictionary to hold all the fields in a ListView item. Construct it with the
  * appropriate model class.

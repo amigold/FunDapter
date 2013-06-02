@@ -1,7 +1,10 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
 
 
 import java.util.AbstractMap.SimpleEntry;
+
+import com.ami.fundapter.extractors.BooleanExtractor;
+import com.ami.fundapter.extractors.StringExtractor;
 
 import android.graphics.Typeface;
 import android.view.View.OnClickListener;
@@ -16,8 +19,8 @@ import android.view.View.OnClickListener;
  */
 public class StringField<T> extends BaseStringField<T> {
 
-    Typeface typeface;
-    SimpleEntry<BooleanExtractor<T>, Integer[]> conditionalTextColorEntry;
+    public Typeface typeface;
+    public SimpleEntry<BooleanExtractor<T>, Integer[]> conditionalTextColorEntry;
 
     /**
      * A field that represents textual data. This data will be shown on a

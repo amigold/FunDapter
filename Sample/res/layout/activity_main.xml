@@ -3,12 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/wrap"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical">
-    <EditText android:id="@+id/searchField" android:layout_width="match_parent" android:layout_height="wrap_content" android:ems="10">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/searchField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10">
         <requestFocus />
     </EditText>
-    <ListView android:id="@+id/pager"
+    <Button
+        android:id="@+id/switchToExpandableBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch to expandable list" />
+    <ListView
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"/>
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity" />
 </LinearLayout>

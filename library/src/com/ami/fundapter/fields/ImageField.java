@@ -1,4 +1,7 @@
-package com.ami.fundapter;
+package com.ami.fundapter.fields;
+
+import com.ami.fundapter.ImageLoader;
+import com.ami.fundapter.extractors.StringExtractor;
 
 import android.view.View.OnClickListener;
 
@@ -14,7 +17,7 @@ import android.view.View.OnClickListener;
  */
 public class ImageField<T> extends BaseStringField<T> {
 
-    ImageLoader imageLoader;
+    public ImageLoader imageLoader;
 
     /**
      * 

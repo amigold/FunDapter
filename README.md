@@ -3,6 +3,12 @@ FunDapter takes the pain and hassle out of creating a new Adapter class for each
 It is a new approach to custom adapter creation for Android apps. 
 You get free ViewHolder pattern support, field validation so you don't get bit by trivial bugs and best of all - you get to keep it DRY!
 
+## What's new?
+
+1. Added support for the most hated adapter of all - ExpandableListAdapter. Check out the sample!
+2. Refactored code to make it more organized.
+3. Added support for filtering data in a regular Adapter (Expandable filtering will be coming soon!)
+
 ## What you used to do:
 
 1. Subclass BaseAdapter or copy existing adapter you already wrote.
@@ -105,10 +111,10 @@ reference to the view and the URL you extracted so you can use your own custom l
 * ProgressBar fields - for showing user progress or xp.
 * Conditional visibility views - views that are shown or hidden according to some boolean value. (Good for decorations such as "sale" banners)
 * All fields support setting an OnClickListener by chaining `onClick()`
+* ExpandableListAdapter is supported
 
 ## What next?
 
-* Support for the most hated adapter of all - ExpandableListAdapter
 * Support for ViewPagerAdapter
 * Support for Favorite toggle buttons (where you provide your own implementation for the data persistence)
 * Whatever else I can think of!
