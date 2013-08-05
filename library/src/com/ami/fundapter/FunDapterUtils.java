@@ -79,18 +79,27 @@ public class FunDapterUtils {
         handleBaseFields(item, holder, position, bindDictionary);
     }
 
-    private static <T> void handleBaseFields(T item, GenericViewHolder holder,
-                                             int position, BindDictionary<T> dictionary) {
+    private static <T> void handleBaseFields(final T item, GenericViewHolder holder,
+                                             final int position, BindDictionary<T> dictionary) {
         // handle base fields
         for (int i = 0; i < dictionary.getBaseFields().size(); i++) {
-            BaseField<T> field = dictionary.getBaseFields()
+            final BaseField<T> field = dictionary.getBaseFields()
                     .get(i);
 
             View view = holder.baseFields[i];
 
-            if (field.clickListener != null) {
-                view.setOnClickListener(field.clickListener);
-            }
+            setClickListener(item, position, field, view);
+        }
+    }
+
+    private static <T> void setClickListener(final T item, final int position, final BaseField<T> field, View view) {
+        if (field.clickListener != null) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    field.clickListener.onClick(item, position, view);
+                }
+            });
         }
     }
 
@@ -107,9 +116,7 @@ public class FunDapterUtils {
             view.setProgress(field.progressExtractor
                     .getIntValue(item, position));
 
-            if (field.clickListener != null) {
-                view.setOnClickListener(field.clickListener);
-            }
+            setClickListener(item, position, field, view);
         }
 
     }
@@ -131,9 +138,7 @@ public class FunDapterUtils {
                 }
             }
 
-            if (field.clickListener != null) {
-                view.setOnClickListener(field.clickListener);
-            }
+            setClickListener(item, position, field, view);
         }
     }
 
@@ -151,9 +156,7 @@ public class FunDapterUtils {
                 field.imageLoader.loadImage(url, view);
             }
 
-            if (field.clickListener != null) {
-                view.setOnClickListener(field.clickListener);
-            }
+            setClickListener(item, position, field, view);
         }
     }
 
@@ -187,10 +190,7 @@ public class FunDapterUtils {
                 }
             }
 
-            // set click listener
-            if (field.clickListener != null) {
-                view.setOnClickListener(field.clickListener);
-            }
+            setClickListener(item, position, field, view);
         }
     }
 

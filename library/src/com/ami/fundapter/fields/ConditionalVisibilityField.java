@@ -1,5 +1,6 @@
 package com.ami.fundapter.fields;
 
+import com.ami.fundapter.ItemClickListener;
 import com.ami.fundapter.extractors.BooleanExtractor;
 
 import android.view.View.OnClickListener;
@@ -25,7 +26,7 @@ public class ConditionalVisibilityField<T> extends BaseField<T> {
     }
 
     @Override
-    public ConditionalVisibilityField<T> onClick(OnClickListener onClickListener) {
+    public ConditionalVisibilityField<T> onClick(ItemClickListener<T> onClickListener) {
 
 	return (ConditionalVisibilityField<T>) super.onClick(onClickListener);
     }
