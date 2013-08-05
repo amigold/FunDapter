@@ -11,4 +11,5 @@ public class GenericViewHolder {
     public ImageView[] imageFields;
     public View[] conditionalVisibilityFields;
     public ProgressBar[] progressBarFields;
+    public View[] baseFields;
 }

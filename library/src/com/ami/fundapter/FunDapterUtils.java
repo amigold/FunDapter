@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ami.fundapter.fields.BaseField;
 import com.ami.fundapter.fields.ConditionalVisibilityField;
 import com.ami.fundapter.fields.ImageField;
 import com.ami.fundapter.fields.ProgressBarField;
@@ -22,6 +23,7 @@ public class FunDapterUtils {
                 .getConditionalVisibilityFieldCount()];
         holder.progressBarFields = new ProgressBar[dictionary
                 .getProgressBarFieldCount()];
+        holder.baseFields = new View[dictionary.getBaseFieldCount()];
 
         // init the string fields
         for (int i = 0; i < dictionary.getStringFields().size(); i++) {
@@ -54,6 +56,13 @@ public class FunDapterUtils {
             holder.progressBarFields[i] = (ProgressBar) v
                     .findViewById(field.viewResId);
         }
+
+        //init base fields
+        for (int i = 0; i < dictionary.getBaseFields().size(); i++) {
+            BaseField<T> field = dictionary.getBaseFields()
+                    .get(i);
+            holder.baseFields[i] = v.findViewById(field.viewResId);
+        }
     }
 
     public static <T> void showData(T item, GenericViewHolder holder,
@@ -66,6 +75,23 @@ public class FunDapterUtils {
         handleConditionalFields(item, holder, position, bindDictionary);
 
         handleProgressFields(item, holder, position, bindDictionary);
+
+        handleBaseFields(item, holder, position, bindDictionary);
+    }
+
+    private static <T> void handleBaseFields(T item, GenericViewHolder holder,
+                                             int position, BindDictionary<T> dictionary) {
+        // handle base fields
+        for (int i = 0; i < dictionary.getBaseFields().size(); i++) {
+            BaseField<T> field = dictionary.getBaseFields()
+                    .get(i);
+
+            View view = holder.baseFields[i];
+
+            if (field.clickListener != null) {
+                view.setOnClickListener(field.clickListener);
+            }
+        }
     }
 
     private static <T> void handleProgressFields(T item,
