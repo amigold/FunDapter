@@ -1,8 +1,6 @@
 package com.ami.fundapter;
 
 
-import java.util.ArrayList;
-
 import com.ami.fundapter.extractors.BooleanExtractor;
 import com.ami.fundapter.extractors.IntegerExtractor;
 import com.ami.fundapter.extractors.StringExtractor;
@@ -11,6 +9,8 @@ import com.ami.fundapter.fields.ConditionalVisibilityField;
 import com.ami.fundapter.fields.ImageField;
 import com.ami.fundapter.fields.ProgressBarField;
 import com.ami.fundapter.fields.StringField;
+
+import java.util.ArrayList;
 
 /**
  * A dictionary to hold all the fields in a ListView item. Construct it with the
@@ -26,6 +26,7 @@ public class BindDictionary<T> {
     private ArrayList<ConditionalVisibilityField<T>> mConditionalVisibilityFields;
     private ArrayList<ProgressBarField<T>> mProgressBarFields;
     private ArrayList<BaseField<T>> mBaseFields;
+    private ArrayList<CheckableField<T>> mCheckableFields;
 
     public BindDictionary() {
         mStringFields = new ArrayList<StringField<T>>();
@@ -33,6 +34,7 @@ public class BindDictionary<T> {
         mConditionalVisibilityFields = new ArrayList<ConditionalVisibilityField<T>>();
         mProgressBarFields = new ArrayList<ProgressBarField<T>>();
         mBaseFields = new ArrayList<BaseField<T>>();
+        mCheckableFields = new ArrayList<CheckableField<T>>();
     }
 
     // -----------------------------
@@ -42,8 +44,8 @@ public class BindDictionary<T> {
                                                    IntegerExtractor<T> progressExtractor,
                                                    IntegerExtractor<T> maxProgressExtractor) {
 
-        ProgressBarField<T> field = new ProgressBarField<T>(viewResId,
-                progressExtractor, maxProgressExtractor);
+        ProgressBarField<T> field =
+                new ProgressBarField<T>(viewResId, progressExtractor, maxProgressExtractor);
 
         mProgressBarFields.add(field);
 
@@ -61,11 +63,12 @@ public class BindDictionary<T> {
     // ---------------
     // ConditionalView methods
     // ---------------
-    public ConditionalVisibilityField<T> addConditionalVisibilityField(
-            int viewResId, BooleanExtractor<T> extractor, int visibilityIfFalse) {
+    public ConditionalVisibilityField<T> addConditionalVisibilityField(int viewResId,
+                                                                       BooleanExtractor<T> extractor,
+                                                                       int visibilityIfFalse) {
 
-        ConditionalVisibilityField<T> field = new ConditionalVisibilityField<T>(
-                viewResId, extractor, visibilityIfFalse);
+        ConditionalVisibilityField<T> field =
+                new ConditionalVisibilityField<T>(viewResId, extractor, visibilityIfFalse);
 
         mConditionalVisibilityFields.add(field);
 
@@ -73,8 +76,7 @@ public class BindDictionary<T> {
     }
 
     int getConditionalVisibilityFieldCount() {
-        return mConditionalVisibilityFields != null ? mConditionalVisibilityFields
-                .size() : 0;
+        return mConditionalVisibilityFields != null ? mConditionalVisibilityFields.size() : 0;
     }
 
     ArrayList<ConditionalVisibilityField<T>> getConditionalVisibilityFields() {
@@ -84,11 +86,10 @@ public class BindDictionary<T> {
     // ---------------
     // Image field methods
     // ---------------
-    public ImageField<T> addImageField(int viewResId,
-                                       StringExtractor<T> extractor, ImageLoader imageLoader) {
+    public ImageField<T> addImageField(int viewResId, StringExtractor<T> extractor,
+                                       ImageLoader imageLoader) {
 
-        ImageField<T> field = new ImageField<T>(viewResId, extractor,
-                imageLoader);
+        ImageField<T> field = new ImageField<T>(viewResId, extractor, imageLoader);
 
         mImageFields.add(field);
 
@@ -106,8 +107,7 @@ public class BindDictionary<T> {
     // ---------------
     // String field methods
     // ---------------
-    public StringField<T> addStringField(int viewResId,
-                                         StringExtractor<T> extractor) {
+    public StringField<T> addStringField(int viewResId, StringExtractor<T> extractor) {
 
         StringField<T> field = new StringField<T>(viewResId, extractor);
 
@@ -124,6 +124,7 @@ public class BindDictionary<T> {
         return mStringFields;
     }
 
+    //Base field methods
     public BaseField<T> addBaseField(int viewResId) {
 
         BaseField<T> field = new BaseField<T>(viewResId);
@@ -139,5 +140,24 @@ public class BindDictionary<T> {
 
     ArrayList<BaseField<T>> getBaseFields() {
         return mBaseFields;
+    }
+
+    //Checkable field methods
+    public CheckableField<T> addCheckableField(int viewResId,
+                                               BooleanExtractor<T> isCheckedExtractor) {
+
+        CheckableField<T> field = new CheckableField<T>(viewResId, isCheckedExtractor);
+
+        mCheckableFields.add(field);
+
+        return field;
+    }
+
+    int getCheckableFieldCount() {
+        return mCheckableFields != null ? mCheckableFields.size() : 0;
+    }
+
+    ArrayList<CheckableField<T>> getCheckableFields() {
+        return mCheckableFields;
     }
 }

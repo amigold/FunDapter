@@ -1,7 +1,5 @@
 package com.ami.fundapter;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+
+import java.util.ArrayList;
 
 /**
  * A generic adapter that takes a BindDictionary and data and shows them. Does
@@ -64,7 +64,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
 
     @Override
     public int getCount() {
-        if (mDataItems == null)
+        if (mDataItems == null || mBindDictionary == null)
             return 0;
 
         return mDataItems.size();
