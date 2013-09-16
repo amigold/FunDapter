@@ -4,7 +4,6 @@
 # built application files
 *.apk
 *.ap_
-*.jar
  
 # lint files
 lint.xml
@@ -17,8 +16,10 @@ lint.xml
  
 # generated files
 bin/
+out/
 gen/
 classes/
+out/
 gen-external-apklibs/
  
 # maven output folder

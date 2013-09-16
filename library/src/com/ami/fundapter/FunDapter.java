@@ -28,7 +28,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
     private int oddColorRes;
     private int evenColorRes;
     private FunDapterFilter<T> funDapterFilter;
-    private Filter lessonFilter;
+    private Filter mFilter;
 
     /**
      * A generic adapter that takes a BindDictionary and data and shows them.
@@ -139,7 +139,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
 
     @Override
     public Filter getFilter() {
-        return lessonFilter;
+        return mFilter;
     }
 
     /**
@@ -155,7 +155,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
 
         this.funDapterFilter = filter;
 
-        lessonFilter = new Filter() {
+        mFilter = new Filter() {
 
             @Override
             protected void publishResults(CharSequence constraint,

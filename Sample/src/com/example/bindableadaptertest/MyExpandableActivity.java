@@ -1,22 +1,22 @@
 package com.example.bindableadaptertest;
 
+import android.app.ExpandableListActivity;
+import android.graphics.Typeface;
+import android.os.Bundle;
+
+import com.ami.fundapter.BindDictionary;
+import com.ami.fundapter.ExpandableFunDapter;
+import com.ami.fundapter.extractors.ChildExtractor;
+import com.ami.fundapter.extractors.StringExtractor;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.ExpandableListActivity;
-import android.graphics.Typeface;
-import android.os.Bundle;
-
-import com.ami.fundapter.BindDictionary;
-import com.ami.fundapter.ChildExtractor;
-import com.ami.fundapter.ExpandableFunDapter;
-import com.ami.fundapter.extractors.StringExtractor;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class MyExpandableActivity extends ExpandableListActivity {
 
