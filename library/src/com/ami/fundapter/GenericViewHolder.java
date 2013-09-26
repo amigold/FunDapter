@@ -9,7 +9,8 @@ import android.widget.TextView;
 public class GenericViewHolder {
     public View root;
     public TextView[] stringFields;
-    public ImageView[] imageFields;
+    public ImageView[] dynamicImageFields;
+    public ImageView[] staticImageFields;
     public View[] conditionalVisibilityFields;
     public ProgressBar[] progressBarFields;
     public View[] baseFields;

@@ -185,7 +185,7 @@ public class ExpandableFunDapter<G, C> extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
 }

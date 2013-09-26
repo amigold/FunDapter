@@ -5,10 +5,14 @@ import com.ami.fundapter.extractors.BooleanExtractor;
 import com.ami.fundapter.extractors.IntegerExtractor;
 import com.ami.fundapter.extractors.StringExtractor;
 import com.ami.fundapter.fields.BaseField;
+import com.ami.fundapter.fields.CheckableField;
 import com.ami.fundapter.fields.ConditionalVisibilityField;
-import com.ami.fundapter.fields.ImageField;
+import com.ami.fundapter.fields.DynamicImageField;
 import com.ami.fundapter.fields.ProgressBarField;
+import com.ami.fundapter.fields.StaticImageField;
 import com.ami.fundapter.fields.StringField;
+import com.ami.fundapter.interfaces.DynamicImageLoader;
+import com.ami.fundapter.interfaces.StaticImageLoader;
 
 import java.util.ArrayList;
 
@@ -22,7 +26,8 @@ import java.util.ArrayList;
 public class BindDictionary<T> {
 
     private ArrayList<StringField<T>> mStringFields;
-    private ArrayList<ImageField<T>> mImageFields;
+    private ArrayList<DynamicImageField<T>> mDynamicImageFields;
+    private ArrayList<StaticImageField<T>> mStaticImageFields;
     private ArrayList<ConditionalVisibilityField<T>> mConditionalVisibilityFields;
     private ArrayList<ProgressBarField<T>> mProgressBarFields;
     private ArrayList<BaseField<T>> mBaseFields;
@@ -30,11 +35,12 @@ public class BindDictionary<T> {
 
     public BindDictionary() {
         mStringFields = new ArrayList<StringField<T>>();
-        mImageFields = new ArrayList<ImageField<T>>();
+        mDynamicImageFields = new ArrayList<DynamicImageField<T>>();
         mConditionalVisibilityFields = new ArrayList<ConditionalVisibilityField<T>>();
         mProgressBarFields = new ArrayList<ProgressBarField<T>>();
         mBaseFields = new ArrayList<BaseField<T>>();
         mCheckableFields = new ArrayList<CheckableField<T>>();
+        mStaticImageFields = new ArrayList<StaticImageField<T>>();
     }
 
     // -----------------------------
@@ -86,22 +92,23 @@ public class BindDictionary<T> {
     // ---------------
     // Image field methods
     // ---------------
-    public ImageField<T> addImageField(int viewResId, StringExtractor<T> extractor,
-                                       ImageLoader imageLoader) {
+    public DynamicImageField<T> addDynamicImageField(int viewResId, StringExtractor<T> extractor,
+                                                     DynamicImageLoader dynamicImageLoader) {
 
-        ImageField<T> field = new ImageField<T>(viewResId, extractor, imageLoader);
+        DynamicImageField<T> field =
+                new DynamicImageField<T>(viewResId, extractor, dynamicImageLoader);
 
-        mImageFields.add(field);
+        mDynamicImageFields.add(field);
 
         return field;
     }
 
-    int getImageFieldCount() {
-        return mImageFields != null ? mImageFields.size() : 0;
+    int getDynamicImageFieldCount() {
+        return mDynamicImageFields != null ? mDynamicImageFields.size() : 0;
     }
 
-    ArrayList<ImageField<T>> getImageFields() {
-        return mImageFields;
+    ArrayList<DynamicImageField<T>> getDynamicImageFields() {
+        return mDynamicImageFields;
     }
 
     // ---------------
@@ -159,5 +166,24 @@ public class BindDictionary<T> {
 
     ArrayList<CheckableField<T>> getCheckableFields() {
         return mCheckableFields;
+    }
+
+    //static image field methods
+    public StaticImageField<T> addStaticImageField(int viewResId,
+                                                   StaticImageLoader staticImageLoader) {
+
+        StaticImageField<T> field = new StaticImageField<T>(viewResId, staticImageLoader);
+
+        mStaticImageFields.add(field);
+
+        return field;
+    }
+
+    int getStaticImageFieldCount() {
+        return mStaticImageFields != null ? mStaticImageFields.size() : 0;
+    }
+
+    ArrayList<StaticImageField<T>> getStaticImageFields() {
+        return mStaticImageFields;
     }
 }

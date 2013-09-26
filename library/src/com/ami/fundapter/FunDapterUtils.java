@@ -8,9 +8,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ami.fundapter.fields.BaseField;
+import com.ami.fundapter.fields.CheckableField;
 import com.ami.fundapter.fields.ConditionalVisibilityField;
-import com.ami.fundapter.fields.ImageField;
+import com.ami.fundapter.fields.DynamicImageField;
 import com.ami.fundapter.fields.ProgressBarField;
+import com.ami.fundapter.fields.StaticImageField;
 import com.ami.fundapter.fields.StringField;
 
 public class FunDapterUtils {
@@ -19,12 +21,13 @@ public class FunDapterUtils {
                                      BindDictionary<T> dictionary) {
         // init the holder arrays
         holder.stringFields = new TextView[dictionary.getStringFieldCount()];
-        holder.imageFields = new ImageView[dictionary.getImageFieldCount()];
+        holder.dynamicImageFields = new ImageView[dictionary.getDynamicImageFieldCount()];
         holder.conditionalVisibilityFields =
                 new View[dictionary.getConditionalVisibilityFieldCount()];
         holder.progressBarFields = new ProgressBar[dictionary.getProgressBarFieldCount()];
         holder.baseFields = new View[dictionary.getBaseFieldCount()];
         holder.checkableFields = new CompoundButton[dictionary.getCheckableFieldCount()];
+        holder.staticImageFields = new ImageView[dictionary.getStaticImageFieldCount()];
 
         // init the string fields
         int i;
@@ -36,10 +39,16 @@ public class FunDapterUtils {
             if (field.typeface != null) holder.stringFields[i].setTypeface(field.typeface);
         }
 
-        // init image fields
-        for (i = 0; i < dictionary.getImageFields().size(); i++) {
-            ImageField<T> field = dictionary.getImageFields().get(i);
-            holder.imageFields[i] = (ImageView) v.findViewById(field.viewResId);
+        // init dynamic image fields
+        for (i = 0; i < dictionary.getDynamicImageFields().size(); i++) {
+            DynamicImageField<T> field = dictionary.getDynamicImageFields().get(i);
+            holder.dynamicImageFields[i] = (ImageView) v.findViewById(field.viewResId);
+        }
+
+        // init static image fields
+        for (i = 0; i < dictionary.getStaticImageFieldCount(); i++) {
+            StaticImageField<T> field = dictionary.getStaticImageFields().get(i);
+            holder.staticImageFields[i] = (ImageView) v.findViewById(field.viewResId);
         }
 
         // init conditional visibility fields
@@ -73,7 +82,9 @@ public class FunDapterUtils {
 
         handleStringFields(item, holder, position, bindDictionary);
 
-        handleImageFields(item, holder, position, bindDictionary);
+        handleDynamicImageFields(item, holder, position, bindDictionary);
+
+        handleStaticImageFields(item, holder, position, bindDictionary);
 
         handleConditionalFields(item, holder, position, bindDictionary);
 
@@ -92,6 +103,7 @@ public class FunDapterUtils {
             final CheckableField<T> field = dictionary.getCheckableFields().get(i);
             CompoundButton view = holder.checkableFields[i];
 
+            view.setOnCheckedChangeListener(null);
             view.setChecked(field.checkedExtractor.getBooleanValue(item, position));
 
             setClickListener(item, position, field, view);
@@ -169,17 +181,33 @@ public class FunDapterUtils {
         }
     }
 
-    private static <T> void handleImageFields(T item, GenericViewHolder holder, int position,
-                                              BindDictionary<T> dictionary) {
+    private static <T> void handleDynamicImageFields(T item, GenericViewHolder holder, int position,
+                                                     BindDictionary<T> dictionary) {
         // handle image fields
-        for (int i = 0; i < dictionary.getImageFields().size(); i++) {
-            ImageField<T> field = dictionary.getImageFields().get(i);
+        for (int i = 0; i < dictionary.getDynamicImageFields().size(); i++) {
+            DynamicImageField<T> field = dictionary.getDynamicImageFields().get(i);
             String url = field.extractor.getStringValue(item, position);
-            ImageView view = holder.imageFields[i];
+            ImageView view = holder.dynamicImageFields[i];
 
             // call the image loader
-            if (!TextUtils.isEmpty(url) && field.imageLoader != null && view != null) {
-                field.imageLoader.loadImage(url, view);
+            if (!TextUtils.isEmpty(url) && field.dynamicImageLoader != null && view != null) {
+                field.dynamicImageLoader.loadImage(url, view);
+            }
+
+            setClickListener(item, position, field, view);
+        }
+    }
+
+    private static <T> void handleStaticImageFields(T item, GenericViewHolder holder, int position,
+                                                    BindDictionary<T> dictionary) {
+        // handle image fields
+        for (int i = 0; i < dictionary.getStaticImageFieldCount(); i++) {
+            StaticImageField<T> field = dictionary.getStaticImageFields().get(i);
+            ImageView view = holder.staticImageFields[i];
+
+            // call the image loader
+            if (item != null && field.staticImageLoader != null && view != null) {
+                field.staticImageLoader.loadImage(item, view, position);
             }
 
             setClickListener(item, position, field, view);

@@ -1,8 +1,8 @@
-package com.ami.fundapter;
+package com.ami.fundapter.interfaces;
 
 
 import android.widget.ImageView;
 
-public interface ImageLoader {
+public interface DynamicImageLoader {
     public void loadImage(String url, ImageView view);
 }

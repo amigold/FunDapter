@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.ami.fundapter.interfaces.FunDapterFilter;
+
 import java.util.ArrayList;
 
 /**
@@ -41,8 +43,8 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
      *                       R.layout.list_item)
      * @param dictionary     - The dictionary that will match between fields and data.
      */
-    public FunDapter(Context context, ArrayList<T> dataItems,
-                     int layoutResource, BindDictionary<T> dictionary) {
+    public FunDapter(Context context, ArrayList<T> dataItems, int layoutResource,
+                     BindDictionary<T> dictionary) {
         this.mContext = context;
         this.mDataItems = dataItems;
         this.mOrigDataItems = dataItems;
@@ -64,8 +66,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
 
     @Override
     public int getCount() {
-        if (mDataItems == null || mBindDictionary == null)
-            return 0;
+        if (mDataItems == null || mBindDictionary == null) return 0;
 
         return mDataItems.size();
     }
@@ -87,8 +88,8 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
         View v = convertView;
         GenericViewHolder holder;
         if (null == v) {
-            LayoutInflater vi = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater vi =
+                    (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(mLayoutResource, null);
             holder = new GenericViewHolder();
             holder.root = v;
@@ -113,19 +114,16 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
         // handles alternating background colors if selected
         if (oddColorRes > 0 && evenColorRes > 0) {
             if (position % 2 == 0) {
-                holder.root.setBackgroundColor(mContext.getResources()
-                        .getColor(evenColorRes));
+                holder.root.setBackgroundColor(mContext.getResources().getColor(evenColorRes));
             } else {
-                holder.root.setBackgroundColor(mContext.getResources()
-                        .getColor(oddColorRes));
+                holder.root.setBackgroundColor(mContext.getResources().getColor(oddColorRes));
             }
         }
 
         FunDapterUtils.showData(item, holder, position, mBindDictionary);
     }
 
-    public FunDapter<T> setAlternatingBackground(int oddColorRes,
-                                                 int evenColorRes) {
+    public FunDapter<T> setAlternatingBackground(int oddColorRes, int evenColorRes) {
 
         if (oddColorRes <= 0 || evenColorRes <= 0) {
             throw new IllegalArgumentException("Color parameters are illegal");
@@ -150,19 +148,16 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
     public void initFilter(FunDapterFilter<T> filter) {
 
         if (filter == null)
-            throw new IllegalArgumentException(
-                    "Cannot pass a null filter to FunDapter");
+            throw new IllegalArgumentException("Cannot pass a null filter to FunDapter");
 
         this.funDapterFilter = filter;
 
         mFilter = new Filter() {
 
             @Override
-            protected void publishResults(CharSequence constraint,
-                                          FilterResults results) {
+            protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                @SuppressWarnings("unchecked")
-                ArrayList<T> list = (ArrayList<T>) results.values;
+                @SuppressWarnings("unchecked") ArrayList<T> list = (ArrayList<T>) results.values;
 
                 if (results.count == 0) {
                     resetData();
@@ -185,8 +180,8 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
                 } else {
                     // Perform the filtering operation
 
-                    ArrayList<T> filter = funDapterFilter.filter(
-                            constraint.toString(), mOrigDataItems);
+                    ArrayList<T> filter =
+                            funDapterFilter.filter(constraint.toString(), mOrigDataItems);
 
                     results.count = filter.size();
                     results.values = filter;

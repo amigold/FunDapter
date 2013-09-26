@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 import com.ami.fundapter.BindDictionary;
 import com.ami.fundapter.FunDapter;
-import com.ami.fundapter.FunDapterFilter;
-import com.ami.fundapter.ImageLoader;
 import com.ami.fundapter.extractors.StringExtractor;
+import com.ami.fundapter.interfaces.DynamicImageLoader;
+import com.ami.fundapter.interfaces.FunDapterFilter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -131,13 +131,13 @@ public class MainActivity extends FragmentActivity {
                 return item.price + " $";
             }
         });
-        prodDict.addImageField(R.id.image, new StringExtractor<Product>() {
+        prodDict.addDynamicImageField(R.id.image, new StringExtractor<Product>() {
 
                     @Override
                     public String getStringValue(Product item, int position) {
                         return item.imageUrl;
                     }
-                }, new ImageLoader() {
+                }, new DynamicImageLoader() {
                     @Override
                     public void loadImage(String url, ImageView view) {
                         // INSERT IMAGE LOADER LIBRARY HERE

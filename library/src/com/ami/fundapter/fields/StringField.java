@@ -3,12 +3,11 @@ package com.ami.fundapter.fields;
 
 import java.util.AbstractMap.SimpleEntry;
 
-import com.ami.fundapter.ItemClickListener;
+import com.ami.fundapter.interfaces.ItemClickListener;
 import com.ami.fundapter.extractors.BooleanExtractor;
 import com.ami.fundapter.extractors.StringExtractor;
 
 import android.graphics.Typeface;
-import android.view.View.OnClickListener;
 
 /**
  * A field that represents textual data. This data will be shown on a TextView

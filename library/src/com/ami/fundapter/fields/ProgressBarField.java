@@ -1,9 +1,7 @@
 package com.ami.fundapter.fields;
 
-import com.ami.fundapter.ItemClickListener;
+import com.ami.fundapter.interfaces.ItemClickListener;
 import com.ami.fundapter.extractors.IntegerExtractor;
-
-import android.view.View.OnClickListener;
 
 
 /**

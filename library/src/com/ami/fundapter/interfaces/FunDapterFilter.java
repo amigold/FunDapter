@@ -1,4 +1,4 @@
-package com.ami.fundapter;
+package com.ami.fundapter.interfaces;
 
 import java.util.ArrayList;
 

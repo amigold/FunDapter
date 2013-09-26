@@ -1,8 +1,6 @@
 package com.ami.fundapter.fields;
 
-import android.view.View.OnClickListener;
-
-import com.ami.fundapter.ItemClickListener;
+import com.ami.fundapter.interfaces.ItemClickListener;
 
 public class BaseField<T> {
     public int viewResId;
