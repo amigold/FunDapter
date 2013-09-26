@@ -5,9 +5,10 @@ You get free ViewHolder pattern support, field validation so you don't get bit b
 
 ## What's new?
 
-1. Added support for the most hated adapter of all - ExpandableListAdapter. Check out the sample!
-2. Refactored code to make it more organized.
-3. Added support for filtering data in a regular Adapter (Expandable filtering will be coming soon!)
+1. Split up ImageFields to dynamic (loaded from web) and static (loaded from local resources\file)
+2. Some more refactoring
+3. Fixed a bug in ExpandableFunDapter that blocked child views from being selectable
+4. Fixed a bug in the handling of CheckableFields
 
 ## What you used to do:
 
