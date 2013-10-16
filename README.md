@@ -85,16 +85,16 @@ Notice how you can chain calls to get some more complex behaviours out of your v
 ### What about our image?? Lets add that as well:
 
 ```java
-prodDict.addImageField(R.id.productImage,
+prodDict.addDynamicImageField(R.id.productImage,
 	new StringExtractor<Product>() {
 
 	    @Override
 	    public String getStringValue(Product item, int position) {
 			return item.imageUrl;
 	    }
-	}, new ImageLoader() {
+	}, new DynamicImageLoader() {
 	    @Override
-	    public void loadImage(String url, ImageView view) {
+	    public void loadDynamicImage(String url, ImageView view) {
 			//insert your own async image loader implementation
 	    }
 	});
