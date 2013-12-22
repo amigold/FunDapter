@@ -5,10 +5,7 @@ You get free ViewHolder pattern support, field validation so you don't get bit b
 
 ## What's new?
 
-1. Split up ImageFields to dynamic (loaded from web) and static (loaded from local resources\file)
-2. Some more refactoring
-3. Fixed a bug in ExpandableFunDapter that blocked child views from being selectable
-4. Fixed a bug in the handling of CheckableFields
+1. Added Gradle support! (finally) Just add `compile 'com.github.amigold.fundapter:library:1.0'` to your dependencies in the build.gradle file in your project.
 
 ## What you used to do:
 
@@ -131,6 +128,9 @@ FunDapter<Product> adapter = new FunDapter<Product>(getActivity(), productArrayL
 * Support for ViewPagerAdapter
 * Support for Favorite toggle buttons (where you provide your own implementation for the data persistence)
 * Whatever else I can think of!
+
+## Gradle Support
+Just add `compile 'com.github.amigold.fundapter:library:1.0'` to your dependencies in the build.gradle file in your project.
 	
 ## License 
 
