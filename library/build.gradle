@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.8.+'
+    }
+}
+apply plugin: 'android-library'
+
+dependencies {
+    compile 'com.android.support:support-v4:19.0.1'
+}
+
+android {
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+    }
+    compileSdkVersion 10
+    buildToolsVersion "19.0.1"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        // if true, stop the gradle build if errors are found
+        abortOnError true
+        // if true, only report errors
+        ignoreWarnings false
+        // if true, check all issues, including those that are off by default
+        checkAllWarnings true
+        // if true, treat all warnings as errors
+        warningsAsErrors true
+        // turn off checking the given issue id's
+        // disable 'TypographyFractions','TypographyQuotes'
+        // turn on the given issue id's
+        // enable 'RtlHardcoded','RtlCompat', 'RtlEnabled'
+        // check *only* the given issue id's
+        // check 'NewApi', 'InlinedApi'
+        // if true, don't include source code lines in the error output
+        noLines false
+        // if true, show all locations for an error, do not truncate lists, etc.
+        showAll true
+        // if true, generate a text report of issues (false by default)
+        textReport true
+        // location to write the output; can be a file or 'stdout'
+        textOutput 'stdout'
+        // if true, generate an XML report for use by for example Jenkins
+        xmlReport false
+        // file to write report to (if not specified, defaults to lint-results.xml)
+        xmlOutput file("build/lint/lint-results.xml")
+        // if true, generate an HTML report (with issue explanations, sourcecode, etc)
+        htmlReport true
+        htmlOutput file("build/lint/lint-results.html")
+
+    }
+}

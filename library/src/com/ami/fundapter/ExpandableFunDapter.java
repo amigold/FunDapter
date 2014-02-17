@@ -8,7 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 
 import com.ami.fundapter.extractors.ChildExtractor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A generic adapter that takes a BindDictionary and data and shows them. Does
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class ExpandableFunDapter<G, C> extends BaseExpandableListAdapter {
 
-    protected ArrayList<G> mDataItems;
+    protected List<G> mDataItems;
     protected final Context mContext;
     private final int mGroupLayoutResource;
     private final int mChildLayoutResource;
@@ -36,11 +36,11 @@ public class ExpandableFunDapter<G, C> extends BaseExpandableListAdapter {
      * ViewHolder pattern.
      *
      * @param context
-     * @param dataItems           - An arraylist of model items
+     * @param dataItems           - A list of model items
      * @param groupLayoutResource
      * @param childLayoutResource
      */
-    public ExpandableFunDapter(Context context, ArrayList<G> dataItems,
+    public ExpandableFunDapter(Context context, List<G> dataItems,
                                BindDictionary<G> groupDictionary, BindDictionary<C> childDictionary,
                                int groupLayoutResource, int childLayoutResource,
                                ChildExtractor<G, C> childExtractor) {
@@ -59,7 +59,7 @@ public class ExpandableFunDapter<G, C> extends BaseExpandableListAdapter {
      *
      * @param dataItems
      */
-    public void updateData(ArrayList<G> dataItems) {
+    public void updateData(List<G> dataItems) {
         this.mDataItems = dataItems;
         notifyDataSetChanged();
     }

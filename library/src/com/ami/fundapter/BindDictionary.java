@@ -170,7 +170,7 @@ public class BindDictionary<T> {
 
     //static image field methods
     public StaticImageField<T> addStaticImageField(int viewResId,
-                                                   StaticImageLoader staticImageLoader) {
+                                                   StaticImageLoader<T> staticImageLoader) {
 
         StaticImageField<T> field = new StaticImageField<T>(viewResId, staticImageLoader);
 

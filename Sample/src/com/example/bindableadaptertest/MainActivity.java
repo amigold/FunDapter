@@ -152,8 +152,8 @@ public class MainActivity extends FragmentActivity {
         // init the filter in the adapter
         adapter.initFilter(new FunDapterFilter<Product>() {
             @Override
-            public ArrayList<Product> filter(String filterConstraint,
-                                             ArrayList<Product> originalList) {
+            public List<Product> filter(String filterConstraint,
+                                             List<Product> originalList) {
 
                 ArrayList<Product> filtered = new ArrayList<Product>();
 
