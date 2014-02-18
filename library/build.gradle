@@ -12,6 +12,10 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.1'
 }
 
+def isReleaseBuild() {
+    return true
+}
+
 android {
 
     sourceSets {
@@ -69,3 +73,5 @@ android {
 
     }
 }
+
+apply from: '../maven_push.gradle'

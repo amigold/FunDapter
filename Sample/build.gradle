@@ -14,7 +14,7 @@ android {
         versionName getVersionName()
 
         minSdkVersion 10
-        targetSdkVersion 19
+        targetSdkVersion 18
     }
 
     sourceSets {
@@ -29,7 +29,7 @@ android {
         }
 
     }
-    compileSdkVersion 19
+    compileSdkVersion 18
     buildToolsVersion "19.0.1"
 
     compileOptions {
