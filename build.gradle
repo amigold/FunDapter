@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.8.+'
+    }
+}
+
+apply plugin: 'android-reporting'
+apply plugin: 'idea'
+
+allprojects {
+    // show deprecation warnings for all projects
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+        options.compilerArgs << "-Xlint:unchecked"
+    }
+}
+
+
+/**
+ * Task to generate a gradle wrapper.
+ */
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.10'
+}

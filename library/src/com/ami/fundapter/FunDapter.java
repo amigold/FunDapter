@@ -10,7 +10,7 @@ import android.widget.Filterable;
 
 import com.ami.fundapter.interfaces.FunDapterFilter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A generic adapter that takes a BindDictionary and data and shows them. Does
@@ -22,8 +22,8 @@ import java.util.ArrayList;
  */
 public class FunDapter<T> extends BaseAdapter implements Filterable {
 
-    protected ArrayList<T> mDataItems;
-    protected ArrayList<T> mOrigDataItems;
+    protected List<T> mDataItems;
+    protected List<T> mOrigDataItems;
     protected final Context mContext;
     private final int mLayoutResource;
     private final BindDictionary<T> mBindDictionary;
@@ -43,7 +43,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
      *                       R.layout.list_item)
      * @param dictionary     - The dictionary that will match between fields and data.
      */
-    public FunDapter(Context context, ArrayList<T> dataItems, int layoutResource,
+    public FunDapter(Context context, List<T> dataItems, int layoutResource,
                      BindDictionary<T> dictionary) {
         this.mContext = context;
         this.mDataItems = dataItems;
@@ -58,7 +58,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
      *
      * @param dataItems
      */
-    public void updateData(ArrayList<T> dataItems) {
+    public void updateData(List<T> dataItems) {
         this.mDataItems = dataItems;
         this.mOrigDataItems = dataItems;
         notifyDataSetChanged();
@@ -157,7 +157,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
 
-                @SuppressWarnings("unchecked") ArrayList<T> list = (ArrayList<T>) results.values;
+                @SuppressWarnings("unchecked") List<T> list = (List<T>) results.values;
 
                 if (results.count == 0) {
                     resetData();
@@ -180,7 +180,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
                 } else {
                     // Perform the filtering operation
 
-                    ArrayList<T> filter =
+                    List<T> filter =
                             funDapterFilter.filter(constraint.toString(), mOrigDataItems);
 
                     results.count = filter.size();
