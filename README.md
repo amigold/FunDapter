@@ -5,7 +5,7 @@ You get free ViewHolder pattern support, field validation so you don't get bit b
 
 ## What's new?
 
-1. Added Gradle support! (finally) Just add `compile 'com.github.amigold.fundapter:library:1.0'` to your dependencies in the build.gradle file in your project.
+1. Gradle support now only contains a JAR archive instead of AAR which wasn't needed. Just add `compile 'com.github.amigold.fundapter2:library:1.01'` to your dependencies in the build.gradle file in your project.
 
 ## What you used to do:
 
