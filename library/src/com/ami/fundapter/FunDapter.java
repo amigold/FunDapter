@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.ami.fundapter.extractors.LongExtractor;
 import com.ami.fundapter.interfaces.FunDapterFilter;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
 
     protected List<T> mDataItems;
     protected List<T> mOrigDataItems;
+    protected LongExtractor<T> idExtractor;
     protected final Context mContext;
     private final int mLayoutResource;
     private final BindDictionary<T> mBindDictionary;
@@ -45,10 +47,28 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
      */
     public FunDapter(Context context, List<T> dataItems, int layoutResource,
                      BindDictionary<T> dictionary) {
+      this(context, dataItems, layoutResource, null, dictionary);
+    }
+
+    /**
+     * A generic adapter that takes a BindDictionary and data and shows them.
+     * Does basic validation for you for all fields and also handles the
+     * ViewHolder pattern.
+     *
+     * @param context
+     * @param dataItems      - An arraylist of model items
+     * @param layoutResource - resource ID of a layout to inflate for each item. (Example:
+     *                       R.layout.list_item)
+     * @param idExtractor    - The extractor that will get stable ids from the data item
+     * @param dictionary     - The dictionary that will match between fields and data.
+     */
+    public FunDapter(Context context, List<T> dataItems, int layoutResource,
+                     LongExtractor<T> idExtractor, BindDictionary<T> dictionary) {
         this.mContext = context;
         this.mDataItems = dataItems;
         this.mOrigDataItems = dataItems;
         this.mLayoutResource = layoutResource;
+        this.idExtractor = idExtractor;
         this.mBindDictionary = dictionary;
     }
 
@@ -77,8 +97,15 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
     }
 
     @Override
+    public boolean hasStableIds() {
+        if(idExtractor == null) return super.hasStableIds();
+        else return true;
+    }
+
+    @Override
     public long getItemId(int position) {
-        return position;
+        if(idExtractor == null) return position;
+        else return idExtractor.getLongValue(getItem(position), position);
     }
 
     @Override
@@ -133,6 +160,13 @@ public class FunDapter<T> extends BaseAdapter implements Filterable {
         this.evenColorRes = evenColorRes;
 
         return this;
+    }
+
+    /**
+     * @param idExtractor - used to extract a stable id from the underlying data item (like a database id or something)
+     */
+    public void setIdExtractor(LongExtractor<T> idExtractor) {
+        this.idExtractor = idExtractor;
     }
 
     @Override
