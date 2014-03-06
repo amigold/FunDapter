@@ -8,12 +8,15 @@ import com.ami.fundapter.extractors.StringExtractor;
 /**
  * This class allows enable fetching images from the web in a ListView.
  *
+ * By default the DynamicImageLoader instance is not called if the StringExtractor returns null.
+ *
  * @param <T>
  * @author Ami G
  */
 public class DynamicImageField<T> extends BaseStringField<T> {
 
     public DynamicImageLoader dynamicImageLoader;
+    public boolean allowNullUrl;
 
     /**
      * @param viewResId          - The resource ID of the view you want to bind to (Example:
@@ -27,6 +30,14 @@ public class DynamicImageField<T> extends BaseStringField<T> {
                              DynamicImageLoader dynamicImageLoader) {
         super(viewResId, extractor);
         this.dynamicImageLoader = dynamicImageLoader;
+    }
+
+    /**
+     * if you want the dynamicImageLoader to be called even when the URL returned from the StringExtractor is null.
+     */
+    public DynamicImageField<T> allowNullUrl() {
+        allowNullUrl = true;
+        return this;
     }
 
     @Override
