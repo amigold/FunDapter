@@ -190,7 +190,7 @@ public class FunDapterUtils {
             ImageView view = holder.dynamicImageFields[i];
 
             // call the image loader
-            if (!TextUtils.isEmpty(url) && field.dynamicImageLoader != null && view != null) {
+            if ((!TextUtils.isEmpty(url) || field.allowNullUrl) && field.dynamicImageLoader != null && view != null) {
                 field.dynamicImageLoader.loadImage(url, view);
             }
 
