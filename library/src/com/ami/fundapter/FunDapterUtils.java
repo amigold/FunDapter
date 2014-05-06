@@ -141,6 +141,13 @@ public class FunDapterUtils {
                     field.clickListener.onClick(item, position, view);
                 }
             });
+            view.setOnLongClickListener(new View.OnLongClickListener(){
+				@Override
+				public boolean onLongClick(View view){
+					field.clickListener.onLongClick(item, position, view);
+					return true;
+				}
+			});
         }
     }
 
