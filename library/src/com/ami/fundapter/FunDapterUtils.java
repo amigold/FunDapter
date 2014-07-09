@@ -117,6 +117,8 @@ public class FunDapterUtils {
                     }
                 });
             }
+
+            doOnPopulated(item, position, field, view);
         }
     }
 
@@ -129,6 +131,8 @@ public class FunDapterUtils {
             View view = holder.baseFields[i];
 
             setClickListener(item, position, field, view);
+
+            doOnPopulated(item, position, field, view);
         }
     }
 
@@ -156,6 +160,8 @@ public class FunDapterUtils {
             view.setProgress(field.progressExtractor.getIntValue(item, position));
 
             setClickListener(item, position, field, view);
+
+            doOnPopulated(item, position, field, view);
         }
 
     }
@@ -178,6 +184,7 @@ public class FunDapterUtils {
             }
 
             setClickListener(item, position, field, view);
+            doOnPopulated(item, position, field, view);
         }
     }
 
@@ -195,6 +202,7 @@ public class FunDapterUtils {
             }
 
             setClickListener(item, position, field, view);
+            doOnPopulated(item, position, field, view);
         }
     }
 
@@ -211,6 +219,7 @@ public class FunDapterUtils {
             }
 
             setClickListener(item, position, field, view);
+            doOnPopulated(item, position, field, view);
         }
     }
 
@@ -243,6 +252,13 @@ public class FunDapterUtils {
             }
 
             setClickListener(item, position, field, view);
+            doOnPopulated(item, position, field, view);
+        }
+    }
+
+    private static <T> void doOnPopulated(T item, int position, BaseField<T> field, View view) {
+        if(field.populatedListener != null) {
+            field.populatedListener.onViewPopulated(item, position, view);
         }
     }
 

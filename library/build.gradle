@@ -3,17 +3,40 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.+'
+        classpath 'com.android.tools.build:gradle:0.10.+'
     }
 }
 apply plugin: 'android-library'
+apply plugin: 'maven-publish'
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.1'
+    compile 'com.android.support:support-v4:19.1.0'
 }
 
 def isReleaseBuild() {
     return true
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.10.+'
+    }
+}
+//'com.github.amigold.fundapter:library:1.01'
+version '1.03'
+group 'com.github.amigold.fundapter'
+
+android.libraryVariants
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact './build/bundles/debug/classes.jar'
+//            artifact './build/libs/library-debug.aar'
+        }
+    }
 }
 
 android {
@@ -31,7 +54,7 @@ android {
 
     }
     compileSdkVersion 10
-    buildToolsVersion "19.0.1"
+    buildToolsVersion "19.1.0"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
