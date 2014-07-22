@@ -1,3 +1,5 @@
+### Looking for a new maintainer! Contact ami.gold.dev@gmail.com if you're interested.
+
 FunDapter takes the pain and hassle out of creating a new Adapter class for each ListView you have in your Android app.
 
 It is a new approach to custom adapter creation for Android apps. 
