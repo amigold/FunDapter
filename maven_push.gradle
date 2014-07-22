@@ -1,10 +1,18 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+println POM_NAME
+println POM_PACKAGING
+println POM_ARTIFACT_ID
+println GROUP
+println VERSION_CODE
+println VERSION_NAME
+
 def sonatypeRepositoryUrl
-if (isReleaseBuild()) {
+if (true) {
     println 'RELEASE BUILD'
     sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+
 } else {
     println 'DEBUG BUILD'
     sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
@@ -27,6 +35,8 @@ afterEvaluate { project ->
                     packaging POM_PACKAGING
                     description POM_DESCRIPTION
                     url POM_URL
+                    groupId GROUP
+                    version VERSION_NAME
 
                     scm {
                         url POM_SCM_URL
@@ -54,12 +64,12 @@ afterEvaluate { project ->
     }
 
     signing {
-        required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+        required { gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
     }
 
     task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.allJava
+        source = android.sourceSets.main.java
     }
 
     task androidJavadocsJar(type: Jar) {
@@ -71,7 +81,7 @@ afterEvaluate { project ->
     task androidSourcesJar(type: Jar) {
         classifier = 'sources'
         //basename = artifact_id
-        from android.sourceSets.main.allSource
+        from android.sourceSets.main.java
     }
 
     artifacts {

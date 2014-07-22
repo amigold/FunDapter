@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
     }
 }
 apply plugin: 'android-library'
@@ -13,18 +13,6 @@ dependencies {
     compile 'com.android.support:support-v4:19.1.0'
 }
 
-def isReleaseBuild() {
-    return true
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.+'
-    }
-}
 //'com.github.amigold.fundapter:library:1.01'
 version '1.03'
 group 'com.github.amigold.fundapter'
@@ -95,6 +83,25 @@ android {
         htmlOutput file("build/lint/lint-results.html")
 
     }
+}
+
+android.libraryVariants.all { variant ->
+    def name = variant.buildType.name
+
+    def checkstyle = project.tasks.create "checkstyle${name.capitalize()}", Checkstyle
+    checkstyle.dependsOn variant.javaCompile
+    checkstyle.source variant.javaCompile.source
+    checkstyle.classpath = project.fileTree(variant.javaCompile.destinationDir)
+    checkstyle.exclude('**/BuildConfig.java')
+    project.tasks.getByName("check").dependsOn checkstyle
+
+    // Only attach a jar for non-debug build types.
+//    if (!name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+    def task = project.tasks.create "jar${name.capitalize()}", Jar
+    task.dependsOn variant.javaCompile
+    task.from variant.javaCompile.destinationDir
+    artifacts.add('archives', task);
+//    }
 }
 
 apply from: '../maven_push.gradle'
