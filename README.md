@@ -3,10 +3,9 @@ FunDapter takes the pain and hassle out of creating a new Adapter class for each
 It is a new approach to custom adapter creation for Android apps. 
 You get free ViewHolder pattern support, field validation so you don't get bit by trivial bugs and best of all - you get to keep it DRY!
 
-## What's new?
-
-1. Gradle support now only contains a JAR archive instead of AAR which wasn't needed. Just add `compile 'com.github.amigold.fundapter2:library:1.01'` to your dependencies in the build.gradle file in your project.
-
+## How to use
+Just add `compile 'com.github.amigold.fundapter:library:1.1.0'` to your dependencies in the build.gradle file in your project.
+	
 ## What you used to do:
 
 1. Subclass BaseAdapter or copy existing adapter you already wrote.
@@ -29,7 +28,7 @@ This is the `Product` class we'll create an adapter for:
 
 ```java
 public class Product {
-	
+	public Long id;
 	public String title;
 	public String description;
 	public String imageUrl;
@@ -108,11 +107,28 @@ FunDapter<Product> adapter = new FunDapter<Product>(getActivity(), productArrayL
 		R.layout.product_list_item, dict);
 ```
 
+if you want to use `Product.id` as the stable id 
+
+```java
+FunDapter<Product> adapter = new FunDapter<Product>(
+        getActivity(), 
+        productArrayList,
+		R.layout.product_list_item, 
+		new LongExtractor<Product>() {
+		    @Override
+            public long getLongValue(Product item, int position) {
+                return item.id;
+            }
+		}, 
+		dict);
+```
+
 ## What is supported so far:
 
 * ViewHolder pattern and more performance optimizations
 * Switching data using `funDapter.updateData()`
 * Alternating background colors for the list items. Use `funDapter.setAlternatingBackground()`
+* Extracting stable IDs from your data items
 * Text fields:
 	* typeface
 	* visibility if null
@@ -123,15 +139,10 @@ FunDapter<Product> adapter = new FunDapter<Product>(getActivity(), productArrayL
 * All fields support setting an OnClickListener by chaining `onClick()`
 * ExpandableListAdapter is supported
 
-## What next?
+## What's new?
 
-* Support for ViewPagerAdapter
-* Support for Favorite toggle buttons (where you provide your own implementation for the data persistence)
-* Whatever else I can think of!
+Look at the [changelog here](CHANGELOG.md)
 
-## Gradle Support
-Just add `compile 'com.github.amigold.fundapter:library:1.0'` to your dependencies in the build.gradle file in your project.
-	
 ## License 
 
 (The MIT License)
