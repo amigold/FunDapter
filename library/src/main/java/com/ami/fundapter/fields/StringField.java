@@ -1,13 +1,13 @@
 package com.ami.fundapter.fields;
 
 
-import java.util.AbstractMap.SimpleEntry;
+import android.graphics.Typeface;
 
-import com.ami.fundapter.interfaces.ItemClickListener;
 import com.ami.fundapter.extractors.BooleanExtractor;
 import com.ami.fundapter.extractors.StringExtractor;
+import com.ami.fundapter.interfaces.ItemClickListener;
 
-import android.graphics.Typeface;
+import java.util.AbstractMap.SimpleEntry;
 
 /**
  * A field that represents textual data. This data will be shown on a TextView

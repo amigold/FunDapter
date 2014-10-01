@@ -1,8 +1,8 @@
 package com.ami.fundapter.fields;
 
+import com.ami.fundapter.extractors.StringExtractor;
 import com.ami.fundapter.interfaces.DynamicImageLoader;
 import com.ami.fundapter.interfaces.ItemClickListener;
-import com.ami.fundapter.extractors.StringExtractor;
 
 
 /**

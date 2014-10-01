@@ -1,7 +1,6 @@
 package com.ami.fundapter.fields;
 
 import com.ami.fundapter.extractors.BooleanExtractor;
-import com.ami.fundapter.fields.BaseField;
 import com.ami.fundapter.interfaces.CheckedChangeListener;
 
 public class CheckableField<T> extends BaseField<T> {

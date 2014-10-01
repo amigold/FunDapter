@@ -3,10 +3,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:0.12.2'
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
     defaultConfig {
@@ -14,21 +14,9 @@ android {
         versionName getVersionName()
 
         minSdkVersion 10
-        targetSdkVersion 18
+        targetSdkVersion 20
     }
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
-        }
-
-    }
     compileSdkVersion 18
     buildToolsVersion "19.1.0"
 
@@ -69,7 +57,6 @@ android {
         // if true, generate an HTML report (with issue explanations, sourcecode, etc)
         htmlReport true
         htmlOutput file("build/lint/lint-results.html")
-
     }
 }
 
@@ -77,8 +64,7 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
     compile project(':library')
-    compile 'com.google.code.gson:gson:2.2.+'
+    compile 'com.google.code.gson:gson:2.2.4'
 }

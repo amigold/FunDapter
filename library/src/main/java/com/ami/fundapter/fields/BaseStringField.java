@@ -1,9 +1,9 @@
 package com.ami.fundapter.fields;
 
 
-import com.ami.fundapter.extractors.StringExtractor;
-
 import android.view.View;
+
+import com.ami.fundapter.extractors.StringExtractor;
 
 public abstract class BaseStringField<T> extends BaseField<T> {
 
